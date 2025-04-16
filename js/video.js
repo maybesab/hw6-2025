@@ -1,81 +1,78 @@
+// Fixed and complete JS for HW#6 - JavaScript Video Basics
+
 var video;
 
 window.addEventListener("load", function () {
   console.log("Good job opening the window");
 
-  // Access video element and set initial properties
-  video = document.getElementById("player1");
+  video = document.querySelector("#player1");
   video.autoplay = false;
   video.loop = false;
+  video.volume = 1.0; // initialize volume to 100%
 
-  // Display initial volume on load
   document.getElementById("volume").innerHTML = video.volume * 100 + "%";
-
-  // Optional logging: video event feedback
-  video.addEventListener("play", function () {
-    console.log("Play Video");
-  });
-
-  video.addEventListener("pause", function () {
-    console.log("Pause Video");
-  });
-
-  video.addEventListener("ended", function () {
-    console.log("Video has ended");
-  });
 });
 
-// Play the video and show volume
+// Play
+
 document.querySelector("#play").addEventListener("click", function () {
   video.play();
   document.getElementById("volume").innerHTML = video.volume * 100 + "%";
 });
 
-// Pause the video
+// Pause
+
 document.querySelector("#pause").addEventListener("click", function () {
   video.pause();
 });
 
-// Slow the playback by 10%
+// Slow Down
+
 document.querySelector("#slower").addEventListener("click", function () {
   video.playbackRate *= 0.9;
-  console.log("New speed is", video.playbackRate.toFixed(2));
+  console.log("New speed is", video.playbackRate);
 });
 
-// Speed up the playback (inverse of slower)
+// Speed Up
+
 document.querySelector("#faster").addEventListener("click", function () {
   video.playbackRate /= 0.9;
-  console.log("New speed is", video.playbackRate.toFixed(2));
+  console.log("New speed is", video.playbackRate);
 });
 
-// Skip ahead 10 seconds (loop to start if past end)
+// Skip Ahead
+
 document.querySelector("#skip").addEventListener("click", function () {
   if (video.currentTime + 10 >= video.duration) {
     video.currentTime = 0;
   } else {
     video.currentTime += 10;
   }
-  console.log("Current location:", video.currentTime.toFixed(2));
+  console.log("Current location:", video.currentTime);
 });
 
-// Toggle mute/unmute and update button label
+// Mute/Unmute
+
 document.querySelector("#mute").addEventListener("click", function () {
   video.muted = !video.muted;
   this.textContent = video.muted ? "Unmute" : "Mute";
 });
 
-// Adjust volume with slider and show value
+// Volume Slider
+
 document.querySelector("#slider").addEventListener("input", function () {
   video.volume = this.value / 100;
   document.getElementById("volume").innerHTML = video.volume * 100 + "%";
 });
 
-// Apply vintage style by adding oldSchool class
+// Style: Vintage
+
 document.querySelector("#vintage").addEventListener("click", function () {
   video.classList.add("oldSchool");
 });
 
-// Remove vintage style by removing oldSchool class
+// Style: Original
+
 document.querySelector("#orig").addEventListener("click", function () {
   video.classList.remove("oldSchool");
 });
